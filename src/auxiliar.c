@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "transaction.h"
+#include "auxiliar.h"
 
 /* Function to swap values at two pointers */
 void swap(tCommand *x, tCommand *y)
@@ -11,32 +11,41 @@ void swap(tCommand *x, tCommand *y)
 }
 
 /* -------------------------------------------------------------------------- */
-int transactionNextCommandIdx (int curIdx, int endIdx, int *transactionsOrder){
-    int nextIdx =0;
-    int myNewTransactionId = transactionsOrder[curIdx]; 
-    for (int i=0;i < curIdx;i++){
-        if (transactionsOrder[i] == myNewTransactionId){
-            nextIdx++; 
+int transactionNextCommandIdx(int curIdx, int *transactionsOrder)
+{
+    int nextIdx = 0;
+    int myNewTransactionId = transactionsOrder[curIdx];
+    for (int i = 0; i < curIdx; i++)
+    {
+        if (transactionsOrder[i] == myNewTransactionId)
+        {
+            nextIdx++;
         }
     }
 
     return nextIdx;
 }
 
-tCommand getMyTransactionCommand(int commandIdx, int transactionId,escalationT *escalation){
-    for (int i=0;i<escalation->transactionsQt;i++){
-        if (escalation->transactions[i].id == transactionId ){
-            return escalation->transactions[i].commands[commandIdx]; 
+tCommand getMyTransactionCommand(int commandIdx, int transactionId, escalationT *escalation)
+{
+    for (int i = 0; i < escalation->transactionsQt; i++)
+    {
+        if (escalation->transactions[i].id == transactionId)
+        {
+            return escalation->transactions[i].commands[commandIdx];
         }
     }
 
+    return (tCommand){READ, {'C'}, 0, 0};
 }
 
-void translateTransactionsIdxToCommands(tCommand *newCommandsOrder,int *transactionsOrders,escalationT *originalEscalation, int n ){
-    for (int i =0;i <= n;i++){
-        int commandIdx = transactionNextCommandIdx( i,n, transactionsOrders);
+void translateTransactionsIdxToCommands(tCommand *newCommandsOrder, int *transactionsOrders, escalationT *originalEscalation, int n)
+{
+    for (int i = 0; i <= n; i++)
+    {
+        int commandIdx = transactionNextCommandIdx(i, transactionsOrders);
         tCommand myCommand = getMyTransactionCommand(commandIdx, transactionsOrders[i], originalEscalation);
-        newCommandsOrder[i]=myCommand; 
+        newCommandsOrder[i] = myCommand;
     }
 }
 
@@ -48,19 +57,18 @@ void translateTransactionsIdxToCommands(tCommand *newCommandsOrder,int *transact
  * @param allPerm {tCommand **} Matrix with all possible permutations
  * @param idx {int} - Index of the current permutation to atributte to all permutation mat line
  */
-void permute(tCommand *array, int init, int end, tCommand **allPerm, int *idx,escalationT *originalEscalation)
+void permute(tCommand *array, int init, int end, tCommand **allPerm, int *idx, escalationT *originalEscalation)
 {
     if (init == end)
     {
-        int transactionOrderPermutation[end+1];
-        int myTransactionsIdx[end+1]; 
+        int transactionOrderPermutation[end + 1];
         for (int k = 0; k <= end; k++)
         {
-            transactionOrderPermutation[k] =array[k].transactionId;
+            transactionOrderPermutation[k] = array[k].transactionId;
         }
-        translateTransactionsIdxToCommands(allPerm[(*idx)], transactionOrderPermutation, originalEscalation,end);
+        translateTransactionsIdxToCommands(allPerm[(*idx)], transactionOrderPermutation, originalEscalation, end);
         // allPerm[(*idx)][k] = array[k];
-        (*idx)++; 
+        (*idx)++;
     }
     else
     {
@@ -76,29 +84,32 @@ void permute(tCommand *array, int init, int end, tCommand **allPerm, int *idx,es
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief Function to print all permutations 
+ * @brief Function to print all permutations
  * @param allPermutations {tCommand **} - Matrix with all the permutations
  * @param lines {int} - number of lines in the allPermutations matrix
  * @param cols {int} - number of collumns in the allPermutations matrix
  */
-void printAllPermutations(tCommand **allPermutations, int lines, int cols){
-    for (int i=0;i < lines;i++){
-        for (int j=0;j < cols;j++){
+void printAllPermutations(tCommand **allPermutations, int lines, int cols)
+{
+    for (int i = 0; i < lines; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
 
             switch (allPermutations[i][j].type)
-                    {
-                    case READ:
-                        printf("[%d READ %s ]",allPermutations[i][j].transactionId,allPermutations[i][j].atribute);
-                        break;
-                    case WRITE:
-                        printf("[%d WRITE %s ]",allPermutations[i][j].transactionId,allPermutations[i][j].atribute);
-                        break;
-                    case COMMIT:
-                        printf("[%d COMMIT %s ]",allPermutations[i][j].transactionId,allPermutations[i][j].atribute);
-                        break;
-                    default:
-                        break;
-                    }
+            {
+            case READ:
+                printf("[%d READ %s ]", allPermutations[i][j].transactionId, allPermutations[i][j].atribute);
+                break;
+            case WRITE:
+                printf("[%d WRITE %s ]", allPermutations[i][j].transactionId, allPermutations[i][j].atribute);
+                break;
+            case COMMIT:
+                printf("[%d COMMIT %s ]", allPermutations[i][j].transactionId, allPermutations[i][j].atribute);
+                break;
+            default:
+                break;
+            }
         }
         printf("\n");
     }

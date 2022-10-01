@@ -21,7 +21,8 @@ tSchedule *loadSchedule(FILE *fp, TScheduleList *graphScheduleList) {
     createGraphScheduleList(graphScheduleList);
     createTransactionList(graphScheduleList->schedule);
 
-    while (getline(&line, &len, fp) != -1) {
+    int endOfFile = getline(&line, &len, fp);
+    while (endOfFile != -1) {
         escalationT *curEscalation = &schedule->escalations[schedule->escalationsQt];
         command = getCommand(line);
 
@@ -43,6 +44,8 @@ tSchedule *loadSchedule(FILE *fp, TScheduleList *graphScheduleList) {
         insertTransaction(&graphScheduleList->schedule[schedule->escalationsQt], (*command), index++);
         addCommand(curEscalation->transactions, curEscalation->transactionsQt, command);
         free(command);
+
+        endOfFile = getline(&line, &len, fp);
     }
     graphScheduleList->scheduleListSize = schedule->escalationsQt;
     countUniqueTransactions(graphScheduleList);

@@ -1,0 +1,19 @@
+{
+    "editor.formatOnSave": true, // Formata o código sempre que salvamos  
+    "editor.fontFamily": "Source Code Pro", // Fonte  
+    "editor.fontSize": 16, // Tamanho da Fonte  
+    "workbench.colorTheme": "monokai-charcoal (green)", // Tema  
+    "workbench.iconTheme": "vscode-icons", // Pacote de Ícones  
+    "workbench.startupEditor": "newUntitledFile", // Abre sempre um arquivo em branco  
+    "editor.minimap.enabled": true, // Desabilita o Mini Map  
+    "workbench.panel.defaultLocation": "bottom", // Deixa o terminal a direita  
+    "terminal.integrated.cursorStyle": "underline", // Deixa o cursor do terminal como underline  
+    "terminal.integrated.fontSize": 14, // Tamanho da fonte do terminal
+    "terminal.integrated.fontFamily": "monospace", // Fonte do terminal
+    "editor.tabSize": 4, // Tamanho da tabulação
+    "editor.detectIndentation": true, // Habilita a indentação automática
+    "editor.insertSpaces": true,
+    "files.associations": {
+        "transaction.h": "c"
+    }, // Habilita a indentação automática
+}
