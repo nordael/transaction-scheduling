@@ -23,4 +23,4 @@ Utiização de função auxiliares, para efetuar as permutações das transaçõ
 Utiliza um algoritmo baseado em busca em profundidade sobre um grafo para detectar se existe um ciclo no mesmo. O grafo é construido criando arestas direcionadas (dependências) entre os vertices (transações) de acordo com as operações efetuadas por transações num agendamento. 
 
 ## Autor 
-Rubens Zandomenighi Laszlo e Julio L. Martins 
+[Rubens Zandomenighi](https://github.com/Rubens-Zan/) e [Julio Martins](https://github.com/nordael/)
