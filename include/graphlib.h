@@ -8,7 +8,6 @@
 #ifndef GRAPHLIB_H
 #define GRAPHLIB_H
 
-#include <stdbool.h>
 #include "transaction.h"
 
 #define DEFAULT_SIZE 10

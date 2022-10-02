@@ -1,5 +1,4 @@
 {
-    "editor.formatOnSave": true, // Formata o código sempre que salvamos  
     "editor.fontFamily": "Source Code Pro", // Fonte  
     "editor.fontSize": 16, // Tamanho da Fonte  
     "workbench.colorTheme": "monokai-charcoal (green)", // Tema  
@@ -13,7 +12,4 @@
     "editor.tabSize": 4, // Tamanho da tabulação
     "editor.detectIndentation": true, // Habilita a indentação automática
     "editor.insertSpaces": true,
-    "files.associations": {
-        "transaction.h": "c"
-    }, // Habilita a indentação automática
 }

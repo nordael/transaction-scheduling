@@ -1,8 +1,8 @@
-#include "transaction.h"
-#include <stdio.h>
+#define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
+#include "transaction.h"
 
 /* -------------------------------------------------------------------------- */
 

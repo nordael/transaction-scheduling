@@ -23,6 +23,7 @@ CC_FLAGS=-c         \
 		 -std=c99   \
          -Wall  	\
          -Wextra    \
+		 -pedantic
 
 # Includes src directory
 INCLUDE_SRC=-I./src
@@ -33,6 +34,12 @@ INCLUDE_HEADERS=-I./include
 # Command used at clean target
 RM = rm -rf
 
+# Coloring output
+YELLOW=`tput bold; tput setaf 3`
+GREEN=`tput bold; tput setaf 2`
+RED=`tput bold; tput setaf 1`
+RESET=`tput sgr0`
+
 #
 # Compilation and linking
 #
@@ -42,22 +49,27 @@ build: clean all
 all: createBinFolder $(PROJ_NAME)
 
 $(PROJ_NAME): $(OBJ)
-	@ echo 'Building binary using GCC linker: $@'
+	@ echo "$(YELLOW)Building binary using GCC linker: $(GREEN) $@ $(RESET)"
 	$(CC) $(BIN)*.o -o $(BIN)$(PROJ_NAME)
-	@ echo 'Finished building binary: $@'
+	@ echo ' '
+	@ echo "$(GREEN)Finished building binary: $@ $(RESET)"
 	@ echo ' '
 
 $(OBJ): $(C_SOURCE)
-	@ echo 'Building target using GCC compiler: $^'
+	@ echo "$(YELLOW)Building target using GCC compiler: $^ $(RESET)"
 	$(CC) $(CC_FLAGS) $(C_SOURCE) $(INCLUDE_HEADERS)
 	@ mv ./*.o $(BIN)
 	@ echo ' '
 
 createBinFolder:
+	@ echo "$(GREEN)Creating bin folder ... $(RESET)"
 	@ mkdir -p bin
+	@ echo ' '
 
 clean:
+	@ echo "$(GREEN)Cleaning build files ... $(RESET)"
 	@ $(RM) $(BIN)*.o $(BIN)$(PROJ_NAME) *~
 	@ rmdir $(BIN)
+	@ echo ' '
 
 .PHONY: all clean
